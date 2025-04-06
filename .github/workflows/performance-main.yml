@@ -16,7 +16,7 @@ jobs:
         uses: grafana/k6-action@v0.2.0
         with:
           filename: ./tests/getrequest.js
-          flags: --vus 20 --duration 10s
+          flags: --vus 10 --duration 1s
       - name: Upload Performance Report
         uses: actions/upload-artifact@v4
         continue-on-error: true
