@@ -1,0 +1,25 @@
+name: test-performance-k6
+on:  
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Run k6 test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run k6 - getrequest.js
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: ./tests/getrequest.js
+          flags: --vus 10 --duration 1s
+      - name: Upload Performance Report
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: performance-report
+          path: ./result.html
